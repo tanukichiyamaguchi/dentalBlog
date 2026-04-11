@@ -13,7 +13,7 @@ on:
         options:
           - draft
           - publish
-        default: draft
+        default: publish
 
 permissions:
   contents: write
@@ -48,7 +48,7 @@ jobs:
 
       - name: Auto-publish next article
         env:
-          PUBLISH_STATUS: ${{ inputs.status || 'draft' }}
+          PUBLISH_STATUS: ${{ inputs.status || 'publish' }}
         run: node auto-publish.js --status "$PUBLISH_STATUS"
 
       - name: Commit tracker update
