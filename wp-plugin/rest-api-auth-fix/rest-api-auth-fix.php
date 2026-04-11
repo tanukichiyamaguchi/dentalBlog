@@ -3,7 +3,7 @@
  * Plugin Name: REST API Basic Auth Fix
  * Plugin URI: https://github.com/tanukichiyamaguchi/dentalBlog
  * Description: XSERVER等のCGI/FastCGI環境でREST APIのBasic認証(Application Password)を有効にします。
- * Version: 1.0.0
+ * Version: 2.0.0
  * Author: Sasaki Dental Blog Tools
  * License: GPL-2.0-or-later
  */
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * CGI/FastCGI環境ではAuthorizationヘッダーがPHPに渡されないため、
- * 代替のサーバー変数から読み取ってPHP_AUTH_USER/PHP_AUTH_PWにセットする。
+ * カスタムヘッダー X-WP-Authorization を使って認証情報を受け取る。
  */
 add_action( 'init', function () {
     // 既に認証情報がセットされていれば何もしない
@@ -24,18 +24,24 @@ add_action( 'init', function () {
 
     $auth = '';
 
-    // CGI/FastCGIでリダイレクト経由で渡される場合
-    if ( isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ) {
+    // 方法1: カスタムヘッダー X-WP-Authorization（XSERVERが削除しない）
+    if ( isset( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) && ! empty( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) ) {
+        $auth = $_SERVER['HTTP_X_WP_AUTHORIZATION'];
+    }
+    // 方法2: CGI/FastCGIでリダイレクト経由で渡される場合
+    elseif ( isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ) {
         $auth = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
     }
-    // 通常のHTTP_AUTHORIZATION
+    // 方法3: 通常のHTTP_AUTHORIZATION
     elseif ( isset( $_SERVER['HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
         $auth = $_SERVER['HTTP_AUTHORIZATION'];
     }
-    // Apacheのrequest_headers関数が使える場合
+    // 方法4: Apacheのrequest_headers関数が使える場合
     elseif ( function_exists( 'apache_request_headers' ) ) {
         $headers = apache_request_headers();
-        if ( isset( $headers['Authorization'] ) ) {
+        if ( isset( $headers['X-WP-Authorization'] ) ) {
+            $auth = $headers['X-WP-Authorization'];
+        } elseif ( isset( $headers['Authorization'] ) ) {
             $auth = $headers['Authorization'];
         }
     }
