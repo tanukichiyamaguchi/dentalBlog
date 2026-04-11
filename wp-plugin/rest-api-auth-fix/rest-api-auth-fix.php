@@ -3,7 +3,7 @@
  * Plugin Name: REST API Basic Auth Fix
  * Plugin URI: https://github.com/tanukichiyamaguchi/dentalBlog
  * Description: XSERVER等のCGI/FastCGI環境でREST APIのBasic認証(Application Password)を有効にします。
- * Version: 4.0.0
+ * Version: 4.1.0
  * Author: Sasaki Dental Blog Tools
  * License: GPL-2.0-or-later
  */
@@ -13,12 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * XSERVER等のリバースプロキシ環境では is_ssl() が false を返すため、
- * Application Passwords が無効化される。サイトURLがHTTPSならば強制的に有効化する。
+ * XSERVER のリバースプロキシで is_ssl() が false を返す問題を修正。
+ * $_SERVER['HTTPS'] を強制セットし、SSL依存の全機能を正常化する。
  */
-add_filter( 'wp_is_application_passwords_available', function () {
-    return strpos( home_url(), 'https://' ) === 0;
-} );
+if ( ! isset( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] !== 'on' ) {
+    $_SERVER['HTTPS'] = 'on';
+}
+
+/**
+ * Application Passwords を強制的に有効化する。
+ */
+add_filter( 'wp_is_application_passwords_available', '__return_true' );
 
 /**
  * クエリパラメータ _wp_auth から認証情報を読み取り、
@@ -97,7 +102,7 @@ add_action( 'rest_api_init', function () {
         'callback'            => function () {
             return new WP_REST_Response( array(
                 'plugin'     => 'rest-api-auth-fix',
-                'version'    => '4.0.0',
+                'version'    => '4.1.0',
                 'active'     => true,
                 'php_sapi'   => php_sapi_name(),
                 'wp_version' => get_bloginfo( 'version' ),
