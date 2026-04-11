@@ -8,6 +8,7 @@
  *   node verify-images.js <postId>
  */
 
+require('dotenv').config();
 const { wpRequest } = require('./lib/wordpress-api');
 
 /**

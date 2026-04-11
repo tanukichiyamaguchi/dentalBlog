@@ -12,13 +12,16 @@ on:
           - publish-draft
           - verify-images
       article_path:
-        description: "記事ファイルパス（publish-draft 時のみ）"
+        description: "記事ファイル���ス（publish-draft 時のみ）"
         required: false
         type: string
       post_id:
         description: "投稿ID（verify-images 時のみ）"
         required: false
         type: string
+
+permissions:
+  contents: read
 
 jobs:
   run:
@@ -36,9 +39,9 @@ jobs:
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
         run: |
-          echo "WP_SITE_URL=${WP_SITE_URL}" > .env
-          echo "WP_USERNAME=${WP_USERNAME}" >> .env
-          echo "WP_APP_PASSWORD=${WP_APP_PASSWORD}" >> .env
+          printf 'WP_SITE_URL=%s\n' "$WP_SITE_URL" > .env
+          printf 'WP_USERNAME=%s\n' "$WP_USERNAME" >> .env
+          printf 'WP_APP_PASSWORD=%s\n' "$WP_APP_PASSWORD" >> .env
 
       - name: Install dependencies
         run: npm ci
@@ -49,8 +52,12 @@ jobs:
 
       - name: Publish Draft
         if: inputs.command == 'publish-draft'
-        run: node publish.js ${{ inputs.article_path }} --status draft
+        env:
+          ARTICLE_PATH: ${{ inputs.article_path }}
+        run: node publish.js "$ARTICLE_PATH" --status draft
 
       - name: Verify Images
         if: inputs.command == 'verify-images'
-        run: node verify-images.js ${{ inputs.post_id }}
+        env:
+          POST_ID: ${{ inputs.post_id }}
+        run: node verify-images.js "$POST_ID"

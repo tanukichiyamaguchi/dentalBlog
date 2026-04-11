@@ -11,6 +11,7 @@
 
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
 const { parseFrontmatter, extractBody, convertMarkdownToHtml } = require('./lib/markdown-html');
 const { runQualityCheck } = require('./lib/quality-check');
@@ -172,7 +173,7 @@ async function main() {
   }
 
   // 7. Generate OGP / featured image
-  const safeTitle = title.replace(/[^a-zA-Z0-9\u3000-\u9FFF\u4E00-\u9FFF-]/g, '_').slice(0, 50);
+  const safeTitle = title.replace(/[^a-zA-Z0-9\u3000-\u9FFF-]/g, '_').slice(0, 50);
   const ogpOutputPath = path.resolve(__dirname, 'output', `ogp-${safeTitle}.png`);
   console.log('Generating OGP image...');
   let ogpPath;
@@ -221,11 +222,18 @@ async function main() {
     postParams.date = opts.schedule;
   }
 
-  // Category IDs would need to be resolved from names in a full implementation.
-  // For now we pass category names as-is if they are numeric IDs.
+  // Resolve category names to IDs using clinic.json existingCategories mapping
+  const existingCategories = clinicConfig.existingCategories || {};
   const categoryIds = categoryNames
-    .map((c) => parseInt(c, 10))
-    .filter((n) => !isNaN(n));
+    .map((c) => {
+      const asNum = parseInt(c, 10);
+      if (!isNaN(asNum) && asNum > 0) return asNum;
+      const mapped = existingCategories[c];
+      if (mapped && mapped > 0) return mapped;
+      console.warn(`  Warning: Category "${c}" not resolved to a valid ID. Check clinic.json existingCategories.`);
+      return null;
+    })
+    .filter((n) => n !== null);
   if (categoryIds.length > 0) {
     postParams.categories = categoryIds;
   }

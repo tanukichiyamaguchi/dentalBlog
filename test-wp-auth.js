@@ -8,6 +8,7 @@
  *   node test-wp-auth.js
  */
 
+require('dotenv').config();
 const { verifyAuth, wpRequest } = require('./lib/wordpress-api');
 
 async function main() {
