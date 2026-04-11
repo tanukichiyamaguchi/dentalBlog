@@ -104,8 +104,8 @@
     "treatmentPeriod": "治療期間の目安（例: 2〜3年、月1回の通院）"
   },
 
-  "_commentWordCount": "目標文字数。原則6,000字以上。quality-check.js で6,000字未満はエラーとなる。",
-  "wordCountTarget": 6000,
+  "_commentWordCount": "目標文字数。原則8,000字以上。quality-check.js で8,000字未満はエラーとなる。",
+  "wordCountTarget": 8000,
 
   "_commentCategories": "WordPress カテゴリ。現在は clinicblog のみ使用。",
   "categories": ["clinicblog"],
