@@ -28,15 +28,17 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Generate .env from Secrets
+        env:
+          WP_SITE_URL: ${{ secrets.WP_SITE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
         run: |
-          cat <<EOF > .env
-          WP_SITE_URL=${{ secrets.WP_SITE_URL }}
-          WP_USERNAME=${{ secrets.WP_USERNAME }}
-          WP_APP_PASSWORD=${{ secrets.WP_APP_PASSWORD }}
-          EOF
+          echo "WP_SITE_URL=${WP_SITE_URL}" > .env
+          echo "WP_USERNAME=${WP_USERNAME}" >> .env
+          echo "WP_APP_PASSWORD=${WP_APP_PASSWORD}" >> .env
 
       - name: Install dependencies
         run: npm ci
