@@ -1,9 +1,9 @@
-name: Daily Auto-Publish
+name: Weekly Auto-Publish
 
 on:
   schedule:
-    # 毎日日本時間9:00（UTC 0:00）に実行
-    - cron: '0 0 * * *'
+    # 毎週月曜日 日本時間9:00（UTC 0:00）に実行
+    - cron: '0 0 * * 1'
   workflow_dispatch:
     inputs:
       status:
