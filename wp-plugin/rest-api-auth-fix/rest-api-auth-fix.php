@@ -13,6 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * XSERVER等のリバースプロキシ環境では is_ssl() が false を返すため、
+ * Application Passwords が無効化される。サイトURLがHTTPSならば強制的に有効化する。
+ */
+add_filter( 'wp_is_application_passwords_available', function () {
+    return strpos( home_url(), 'https://' ) === 0;
+} );
+
+/**
  * クエリパラメータ _wp_auth から認証情報を読み取り、
  * Application Password で直接認証を実行する。
  *
