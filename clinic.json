@@ -1,0 +1,103 @@
+{
+  "clinicName": "佐々木歯科医院",
+  "siteUrl": "https://www.dentalclinic-sasaki.com",
+  "blogUrl": "https://www.dentalclinic-sasaki.com/category/clinicblog/",
+  "address": "〒615-8035 京都府京都市西京区下津林芝ノ宮町17",
+  "phone": "075-391-1460",
+  "fax": "075-394-2780",
+  "hours": {
+    "morning": "9:00〜13:00",
+    "afternoon": "14:00〜18:00"
+  },
+  "closedDays": "木曜午後、土曜午後、日曜、祝祭日",
+  "access": [
+    "阪急桂駅東口から徒歩16分",
+    "JR桂川駅バスから徒歩15分",
+    "市営バス下津林大般若町から徒歩5分"
+  ],
+  "director": "佐々木 悦男",
+  "supervisor": {
+    "name": "佐々木 継泰",
+    "reading": "ささき つぐやす",
+    "title": "副院長",
+    "education": "洛南高校 → 東京歯科大学卒",
+    "certifications": [
+      "国際顎頭蓋機能学会 日本部会 認定医",
+      "国際顎頭蓋機能学会 マスター"
+    ],
+    "positions": [
+      "京都歯科医療技術専門学校 運営委員",
+      "京都市立大枝小学校 学校医"
+    ],
+    "instructor": "株式会社モリタ 常任講師"
+  },
+  "servicePages": {
+    "診療案内（総合）": "https://dentalclinic-sasaki.com/menu.html",
+    "一般歯科（ホリスティック治療）": "https://www.dentalclinic-sasaki.com/holistic.html",
+    "噛み合わせ治療": "https://www.dentalclinic-sasaki.com/alignment.html",
+    "歯列矯正": "https://dentalclinic-sasaki.com/ortho.html",
+    "小児歯科・矯正": "https://dentalclinic-sasaki.com/child.html",
+    "型取り不要の虫歯治療": "https://www.dentalclinic-sasaki.com/katadorihuyou.html",
+    "メタルフリー治療": "https://www.dentalclinic-sasaki.com/metalfree.html",
+    "顕微鏡による精密治療": "https://www.dentalclinic-sasaki.com/micro.html",
+    "インプラント": "https://dentalclinic-sasaki.com/implant.html",
+    "ジルコニアインプラント": "https://dentalclinic-sasaki.com/zirko.html",
+    "歯科と婦人科の連携": "https://dentalclinic-sasaki.com/egoscue.html",
+    "親知らず": "https://www.dentalclinic-sasaki.com/wisdom.html",
+    "保険と自費治療の違い": "https://www.dentalclinic-sasaki.com/insurance_vs_self-pay.html",
+    "ドクター紹介": "https://dentalclinic-sasaki.com/profile.html",
+    "アクセス": "https://dentalclinic-sasaki.com/access.html"
+  },
+  "existingCategories": {
+    "clinicblog": 0,
+    "_comment": "カテゴリIDはWordPress管理画面で要取得。0は暫定値"
+  },
+  "uniquePoints": [
+    "ホリスティック治療（お口だけでなく全身の健康を考慮）",
+    "科学的検査ベースの診断（K7マシンなど高度な計測機器を使用）",
+    "極力歯を抜かない矯正（顎の位置から整える顎位矯正）",
+    "完全メタルフリー治療対応（ジルコニアインプラントまで対応）",
+    "隣接婦人科との連携による全身ケア"
+  ],
+  "ngWords": [
+    "MEAW",
+    "meaw",
+    "絶対治る",
+    "必ず成功",
+    "100%安全",
+    "完全無痛",
+    "痛くない治療",
+    "日本一",
+    "最高",
+    "No.1",
+    "最先端",
+    "唯一",
+    "京都で一番"
+  ],
+  "specialtyTerms": [
+    "日高理論",
+    "神経筋機構理論",
+    "K7マシン",
+    "トロフィーシステム",
+    "顎位矯正",
+    "エゴスキュー",
+    "メタボリックドミノ",
+    "マイクロスコープ"
+  ],
+  "topicDistribution": {
+    "orthodontics": 0.35,
+    "implant": 0.35,
+    "tmj_occlusion": 0.15,
+    "holistic_metalfree": 0.10,
+    "preventive": 0.05
+  },
+  "existingArticles": [
+    "「歯列矯正＝見た目だけ」と思っていませんか？頭痛や肩こりも解消する「全身を整える矯正」とは",
+    "歯列矯正は「見た目」だけじゃない！全身の不調を整える噛み合わせ治療の効果",
+    "「顎が鳴る」「口が開かない」を放置しないで！全身の健康を守る噛み合わせ治療",
+    "歯のメンテナンスはなぜ重要？京都市西京区の歯科医師が教える、一生自分の歯でいるための秘訣",
+    "【歯科医師が解説】歯周病が「メタボリックドミノ」の引き金に？",
+    "京都市西京区の佐々木歯科医院が提案する「メタルフリー治療」で、美しく健康な笑顔を！",
+    "その肩こりや頭痛、実は「歯並び」が原因かも？"
+  ]
+}
