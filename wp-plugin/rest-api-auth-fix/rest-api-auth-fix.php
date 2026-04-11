@@ -3,7 +3,7 @@
  * Plugin Name: REST API Basic Auth Fix
  * Plugin URI: https://github.com/tanukichiyamaguchi/dentalBlog
  * Description: XSERVER等のCGI/FastCGI環境でREST APIのBasic認証(Application Password)を有効にします。
- * Version: 3.0.0
+ * Version: 4.0.0
  * Author: Sasaki Dental Blog Tools
  * License: GPL-2.0-or-later
  */
@@ -13,11 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * 認証情報をクエリパラメータ・カスタムヘッダー・標準ヘッダーの
- * いずれかから取得し、PHP_AUTH_USER / PHP_AUTH_PW にセットする。
+ * クエリパラメータ _wp_auth から認証情報を読み取り、
+ * Application Password で直接認証を実行する。
  *
- * determine_current_user フィルタの priority 15 で実行し、
- * WordPress標準の Application Password 認証（priority 20）より先に動く。
+ * $_SERVERに頼らず、プラグイン自身が認証を完結させる。
  */
 add_filter( 'determine_current_user', function ( $user_id ) {
     // 既にログイン済みなら何もしない
@@ -25,50 +24,25 @@ add_filter( 'determine_current_user', function ( $user_id ) {
         return $user_id;
     }
 
-    // 既に PHP_AUTH_USER がセットされていれば何もしない
-    if ( ! empty( $_SERVER['PHP_AUTH_USER'] ) ) {
-        return $user_id;
-    }
-
+    // _wp_auth クエリパラメータから認証情報を取得
     $auth_base64 = '';
 
-    // 方法1: クエリパラメータ _wp_auth（最も確実・XSERVERで削除されない）
     if ( isset( $_GET['_wp_auth'] ) && ! empty( $_GET['_wp_auth'] ) ) {
         $auth_base64 = $_GET['_wp_auth'];
-    }
-    // 方法2: POSTボディの _wp_auth
-    elseif ( isset( $_POST['_wp_auth'] ) && ! empty( $_POST['_wp_auth'] ) ) {
-        $auth_base64 = $_POST['_wp_auth'];
-    }
-    // 方法3: カスタムヘッダー X-WP-Authorization
-    elseif ( isset( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) && ! empty( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) ) {
+    } elseif ( isset( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) && ! empty( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) ) {
         $val = $_SERVER['HTTP_X_WP_AUTHORIZATION'];
         if ( stripos( $val, 'Basic ' ) === 0 ) {
             $auth_base64 = substr( $val, 6 );
         }
-    }
-    // 方法4: REDIRECT_HTTP_AUTHORIZATION（CGI/FastCGI経由）
-    elseif ( isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ) {
-        $val = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
-        if ( stripos( $val, 'Basic ' ) === 0 ) {
-            $auth_base64 = substr( $val, 6 );
-        }
-    }
-    // 方法5: HTTP_AUTHORIZATION
-    elseif ( isset( $_SERVER['HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
+    } elseif ( isset( $_SERVER['HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
         $val = $_SERVER['HTTP_AUTHORIZATION'];
         if ( stripos( $val, 'Basic ' ) === 0 ) {
             $auth_base64 = substr( $val, 6 );
         }
-    }
-    // 方法6: apache_request_headers()
-    elseif ( function_exists( 'apache_request_headers' ) ) {
-        $headers = apache_request_headers();
-        foreach ( array( 'X-WP-Authorization', 'Authorization' ) as $key ) {
-            if ( isset( $headers[ $key ] ) && stripos( $headers[ $key ], 'Basic ' ) === 0 ) {
-                $auth_base64 = substr( $headers[ $key ], 6 );
-                break;
-            }
+    } elseif ( isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) && ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ) {
+        $val = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        if ( stripos( $val, 'Basic ' ) === 0 ) {
+            $auth_base64 = substr( $val, 6 );
         }
     }
 
@@ -82,26 +56,101 @@ add_filter( 'determine_current_user', function ( $user_id ) {
     }
 
     list( $username, $password ) = explode( ':', $decoded, 2 );
-    $_SERVER['PHP_AUTH_USER'] = $username;
-    $_SERVER['PHP_AUTH_PW']   = $password;
+
+    // Application Password で直接認証を実行
+    if ( function_exists( 'wp_authenticate_application_password' ) ) {
+        $user = wp_authenticate_application_password( null, $username, $password );
+        if ( ! is_wp_error( $user ) && $user instanceof WP_User ) {
+            $_SERVER['PHP_AUTH_USER'] = $username;
+            $_SERVER['PHP_AUTH_PW']   = $password;
+            return $user->ID;
+        }
+    }
+
+    // フォールバック: wp_authenticate を使用
+    $user = wp_authenticate( $username, $password );
+    if ( ! is_wp_error( $user ) && $user instanceof WP_User ) {
+        $_SERVER['PHP_AUTH_USER'] = $username;
+        $_SERVER['PHP_AUTH_PW']   = $password;
+        return $user->ID;
+    }
 
     return $user_id;
 }, 15 );
 
 /**
- * 診断用REST APIエンドポイント（認証不要）
- * プラグインが有効化されているか確認するために使用。
+ * REST API エンドポイント登録
  */
 add_action( 'rest_api_init', function () {
+
+    // 診断用エンドポイント（認証不要）
     register_rest_route( 'sasaki-dental/v1', '/status', array(
         'methods'             => 'GET',
         'callback'            => function () {
             return new WP_REST_Response( array(
                 'plugin'     => 'rest-api-auth-fix',
-                'version'    => '3.0.0',
+                'version'    => '4.0.0',
                 'active'     => true,
                 'php_sapi'   => php_sapi_name(),
                 'wp_version' => get_bloginfo( 'version' ),
+            ), 200 );
+        },
+        'permission_callback' => '__return_true',
+    ) );
+
+    // デバッグ用エンドポイント（認証不要・環境情報を表示）
+    register_rest_route( 'sasaki-dental/v1', '/debug', array(
+        'methods'             => 'GET',
+        'callback'            => function ( $request ) {
+            $wp_auth_present = isset( $_GET['_wp_auth'] ) && ! empty( $_GET['_wp_auth'] );
+            $wp_auth_length  = $wp_auth_present ? strlen( $_GET['_wp_auth'] ) : 0;
+
+            // _wp_auth のデコードテスト
+            $decode_ok = false;
+            $username_found = '';
+            if ( $wp_auth_present ) {
+                $decoded = base64_decode( $_GET['_wp_auth'] );
+                if ( $decoded && strpos( $decoded, ':' ) !== false ) {
+                    list( $u, $p ) = explode( ':', $decoded, 2 );
+                    $decode_ok = true;
+                    $username_found = $u;
+                }
+            }
+
+            // ユーザー存在チェック
+            $user_exists = false;
+            if ( $username_found ) {
+                $user = get_user_by( 'login', $username_found );
+                $user_exists = ! empty( $user );
+            }
+
+            // Application Passwords 有効チェック
+            $app_pw_available = function_exists( 'wp_is_application_passwords_available' )
+                ? wp_is_application_passwords_available()
+                : 'function not found';
+
+            // Application Passwords がユーザーに存在するか
+            $app_pw_count = 0;
+            if ( $user_exists && function_exists( 'WP_Application_Passwords' ) ) {
+                $passwords = WP_Application_Passwords::get_user_application_passwords( $user->ID );
+                $app_pw_count = is_array( $passwords ) ? count( $passwords ) : 0;
+            }
+
+            return new WP_REST_Response( array(
+                'wp_auth_param_present'    => $wp_auth_present,
+                'wp_auth_param_length'     => $wp_auth_length,
+                'base64_decode_ok'         => $decode_ok,
+                'username_found'           => $username_found ? substr( $username_found, 0, 3 ) . '***' : '',
+                'user_exists_in_wp'        => $user_exists,
+                'app_passwords_available'  => $app_pw_available,
+                'app_passwords_count'      => $app_pw_count,
+                'php_auth_user_set'        => ! empty( $_SERVER['PHP_AUTH_USER'] ),
+                'current_user_id'          => get_current_user_id(),
+                'server_vars'              => array(
+                    'HTTP_AUTHORIZATION'          => isset( $_SERVER['HTTP_AUTHORIZATION'] ) ? 'present' : 'absent',
+                    'REDIRECT_HTTP_AUTHORIZATION' => isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ? 'present' : 'absent',
+                    'HTTP_X_WP_AUTHORIZATION'     => isset( $_SERVER['HTTP_X_WP_AUTHORIZATION'] ) ? 'present' : 'absent',
+                ),
             ), 200 );
         },
         'permission_callback' => '__return_true',

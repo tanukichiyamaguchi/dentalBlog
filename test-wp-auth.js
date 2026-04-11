@@ -34,8 +34,48 @@ async function main() {
     console.error('  Attempting auth anyway...\n');
   }
 
-  // Step 2: Verify authentication
-  console.log('Step 2: Testing WordPress authentication...');
+  // Step 2: Call debug endpoint to diagnose auth environment
+  console.log('Step 2: Running auth diagnostics...');
+  try {
+    const WP_SITE_URL = (process.env.WP_SITE_URL || '').replace(/\/+$/, '');
+    const token = Buffer.from(`${process.env.WP_USERNAME}:${process.env.WP_APP_PASSWORD}`).toString('base64');
+    const debugUrl = `${WP_SITE_URL}/?rest_route=/sasaki-dental/v1/debug&_wp_auth=${encodeURIComponent(token)}`;
+    const debugRes = await fetch(debugUrl, {
+      headers: { Accept: 'application/json', 'User-Agent': 'SasakiDentalBlogTools/1.0' },
+    });
+    if (debugRes.ok) {
+      const debug = await debugRes.json();
+      console.log(`  _wp_auth param present: ${debug.wp_auth_param_present}`);
+      console.log(`  _wp_auth base64 decode OK: ${debug.base64_decode_ok}`);
+      console.log(`  Username found: ${debug.username_found}`);
+      console.log(`  User exists in WP: ${debug.user_exists_in_wp}`);
+      console.log(`  App Passwords available: ${debug.app_passwords_available}`);
+      console.log(`  App Passwords count: ${debug.app_passwords_count}`);
+      console.log(`  PHP_AUTH_USER set: ${debug.php_auth_user_set}`);
+      console.log(`  Current user ID: ${debug.current_user_id}`);
+      console.log(`  Server vars: ${JSON.stringify(debug.server_vars)}`);
+      console.log('');
+
+      if (!debug.wp_auth_param_present) {
+        console.error('  ERROR: _wp_auth parameter is not reaching WordPress.');
+      }
+      if (!debug.base64_decode_ok) {
+        console.error('  ERROR: _wp_auth value could not be decoded.');
+      }
+      if (debug.username_found && !debug.user_exists_in_wp) {
+        console.error(`  ERROR: Username "${debug.username_found}" does not exist in WordPress.`);
+        console.error('  Check that WP_USERNAME matches your WordPress login username exactly.');
+      }
+      if (debug.app_passwords_available === false) {
+        console.error('  ERROR: Application Passwords are not available on this site.');
+      }
+    }
+  } catch (debugErr) {
+    console.log(`  Debug endpoint not available: ${debugErr.message}\n`);
+  }
+
+  // Step 3: Verify authentication
+  console.log('Step 3: Testing WordPress authentication...');
   try {
     const user = await verifyAuth();
 
