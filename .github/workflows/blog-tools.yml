@@ -1,0 +1,54 @@
+name: Blog Tools
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "実行するコマンド"
+        required: true
+        type: choice
+        options:
+          - test-auth
+          - publish-draft
+          - verify-images
+      article_path:
+        description: "記事ファイルパス（publish-draft 時のみ）"
+        required: false
+        type: string
+      post_id:
+        description: "投稿ID（verify-images 時のみ）"
+        required: false
+        type: string
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate .env from Secrets
+        run: |
+          cat <<EOF > .env
+          WP_SITE_URL=${{ secrets.WP_SITE_URL }}
+          WP_USERNAME=${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD=${{ secrets.WP_APP_PASSWORD }}
+          EOF
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test WordPress Auth
+        if: inputs.command == 'test-auth'
+        run: node test-wp-auth.js
+
+      - name: Publish Draft
+        if: inputs.command == 'publish-draft'
+        run: node publish.js ${{ inputs.article_path }} --status draft
+
+      - name: Verify Images
+        if: inputs.command == 'verify-images'
+        run: node verify-images.js ${{ inputs.post_id }}
