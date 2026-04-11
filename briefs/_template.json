@@ -1,0 +1,115 @@
+{
+  "_comment": "記事ブリーフテンプレート v1.0 — 各フィールドの説明は _commentField を参照してください。ブリーフ作成時はこのファイルをコピーし、全フィールドを記入してください。",
+
+  "_commentKeyword": "tracked-keywords.json から選択したメインキーワードを記入。1記事につき1キーワード。",
+  "keyword": "",
+
+  "_commentSlug": "英語スラッグ。URLに使用されるため、キーワードを英訳しハイフン区切りで記入（例: adult-orthodontics-kyoto）。",
+  "slug": "",
+
+  "_commentTitle": "記事タイトル。32文字以内を推奨。メインキーワードを自然に含め、読者がクリックしたくなる表現にする。",
+  "title": "",
+
+  "_commentMetaDescription": "メタディスクリプション。120文字以内。検索結果に表示される要約文。キーワードを含め、記事の価値を端的に伝える。",
+  "metaDescription": "",
+
+  "_commentSearchIntent": "検索意図の説明。「誰が」「どんな状況で」「何を求めて」検索しているかを具体的に記述する。",
+  "searchIntent": "",
+
+  "_commentTargetAudience": "ターゲット読者。年齢層、性別、居住地、現在の状況、主な悩みを具体的に記述する。",
+  "targetAudience": "",
+
+  "_commentHeadings": "H2見出しを5つ設定。各H2にH3小見出し（2〜3個）と、そのセクションで伝えるべきポイントを記入する。見出しにはキーワードまたは関連語を自然に含める。",
+  "headings": [
+    {
+      "h2": "H2見出し（記事の大きなセクション区切り）",
+      "h3": [
+        "H3小見出し1（H2の中をさらに細分化）",
+        "H3小見出し2"
+      ],
+      "keyPoints": "このセクションで伝えるべき核心ポイント。執筆者がブレないための指針。"
+    },
+    {
+      "h2": "H2見出し2",
+      "h3": [
+        "H3小見出し1",
+        "H3小見出し2"
+      ],
+      "keyPoints": ""
+    },
+    {
+      "h2": "H2見出し3",
+      "h3": [
+        "H3小見出し1",
+        "H3小見出し2"
+      ],
+      "keyPoints": ""
+    },
+    {
+      "h2": "H2見出し4",
+      "h3": [
+        "H3小見出し1",
+        "H3小見出し2"
+      ],
+      "keyPoints": ""
+    },
+    {
+      "h2": "H2見出し5",
+      "h3": [
+        "H3小見出し1",
+        "H3小見出し2"
+      ],
+      "keyPoints": ""
+    }
+  ],
+
+  "_commentFaq": "よくある質問を5つ設定。患者目線の実用的な疑問を選び、回答の方向性と含めるべき情報を記載する。FAQ構造化データ（schema.org FAQPage）にも使用される。",
+  "faq": [
+    {
+      "question": "患者が実際に検索・質問しそうな内容",
+      "answerGuidance": "回答に含めるべき情報、参照すべきデータ、注意点"
+    },
+    {
+      "question": "",
+      "answerGuidance": ""
+    },
+    {
+      "question": "",
+      "answerGuidance": ""
+    },
+    {
+      "question": "",
+      "answerGuidance": ""
+    },
+    {
+      "question": "",
+      "answerGuidance": ""
+    }
+  ],
+
+  "_commentDifferentiators": "当院の差別化ポイント。clinic.json の uniquePoints から、この記事のテーマに関連するものを選択する。",
+  "differentiators": [],
+
+  "_commentInternalLinks": "記事内でリンクすべき院内ページ。clinic.json の servicePages から関連ページを選択する。",
+  "internalLinks": [],
+
+  "_commentCitations": "参照すべき公的出典。eeat-config.json の allowedSources から選択する。最低1件は必須。",
+  "citations": [],
+
+  "_commentSelfPayDisclosure": "自費診療の限定解除要件ブロックに必要な情報。自費診療に言及する記事では必須。治療名・費用目安・リスク副作用・治療期間を具体的に記入する。",
+  "selfPayDisclosure": {
+    "treatmentName": "治療名と概要（例: 顎位矯正 — 顎の位置から整える歯列矯正治療）",
+    "priceRange": "費用目安（税込表記、例: 880,000円〜1,320,000円）",
+    "risks": "リスク・副作用（config/shiji.md の治療別リスク記載例から選定）",
+    "treatmentPeriod": "治療期間の目安（例: 2〜3年、月1回の通院）"
+  },
+
+  "_commentWordCount": "目標文字数。原則6,000字以上。quality-check.js で6,000字未満はエラーとなる。",
+  "wordCountTarget": 6000,
+
+  "_commentCategories": "WordPress カテゴリ。現在は clinicblog のみ使用。",
+  "categories": ["clinicblog"],
+
+  "_commentTags": "WordPress タグ。記事のテーマに合った日本語タグを3〜5個設定する。",
+  "tags": []
+}
