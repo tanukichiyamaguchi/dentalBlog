@@ -173,8 +173,8 @@ async function main() {
   }
 
   // 7. Generate OGP / featured image
-  const safeTitle = title.replace(/[^a-zA-Z0-9\u3000-\u9FFF-]/g, '_').slice(0, 50);
-  const ogpOutputPath = path.resolve(__dirname, 'output', `ogp-${safeTitle}.png`);
+  const safeSlug = (slug || title.replace(/[^a-zA-Z0-9-]/g, '_')).slice(0, 50);
+  const ogpOutputPath = path.resolve(__dirname, 'output', `ogp-${safeSlug}.png`);
   console.log('Generating OGP image...');
   let ogpPath;
   try {
