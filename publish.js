@@ -195,9 +195,47 @@ async function main() {
     process.exit(1);
   }
 
-  // 9. Convert Markdown body to HTML
+  // 9. Generate section images for each H2, upload, and insert into markdown
   const body = extractBody(markdown);
-  const htmlContent = convertMarkdownToHtml(body);
+  let bodyWithImages = body;
+
+  const h2Regex = /^## (.+)$/gm;
+  const h2Matches = [...body.matchAll(h2Regex)];
+
+  if (h2Matches.length > 0) {
+    console.log(`Generating ${h2Matches.length} section images...`);
+    const sectionImages = [];
+
+    for (let i = 0; i < h2Matches.length; i++) {
+      const h2Title = h2Matches[i][1].replace(/——.+$/, '').trim();
+      const sectionFilename = `section-${slug || 'article'}-${i + 1}.png`;
+      const sectionPath = path.resolve(__dirname, 'output', sectionFilename);
+
+      try {
+        await generateOgpImage(h2Title, sectionPath);
+        const sectionMedia = await uploadMedia(sectionPath, h2Title);
+        sectionImages.push({ index: i, title: h2Title, url: sectionMedia.url });
+        console.log(`  Section ${i + 1}: "${h2Title}" -> ${sectionMedia.url}`);
+      } catch (err) {
+        console.warn(`  Warning: Could not generate/upload section image ${i + 1}: ${err.message}`);
+        sectionImages.push(null);
+      }
+    }
+
+    // Insert images after each H2 (process in reverse to preserve indices)
+    const lines = bodyWithImages.split('\n');
+    for (let i = h2Matches.length - 1; i >= 0; i--) {
+      if (!sectionImages[i]) continue;
+      const h2Line = body.substring(0, h2Matches[i].index).split('\n').length - 1;
+      const imgMarkdown = `\n![${sectionImages[i].title}](${sectionImages[i].url})\n`;
+      lines.splice(h2Line + 1, 0, imgMarkdown);
+    }
+    bodyWithImages = lines.join('\n');
+    console.log('');
+  }
+
+  // 10. Convert Markdown body to HTML
+  const htmlContent = convertMarkdownToHtml(bodyWithImages);
   console.log(`HTML content generated (${htmlContent.length} characters).\n`);
 
   // 10. Resolve tags
