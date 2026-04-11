@@ -2,23 +2,41 @@
 
 /**
  * WordPress authentication test script.
- * Verifies WP REST API credentials and displays user information.
+ * 1. Checks if the REST API Auth Fix plugin is active
+ * 2. Verifies WP REST API credentials and displays user information
  *
  * Usage:
  *   node test-wp-auth.js
  */
 
 require('dotenv').config();
-const { verifyAuth, wpRequest } = require('./lib/wordpress-api');
+const { verifyAuth, wpRequest, checkPluginStatus } = require('./lib/wordpress-api');
 
 async function main() {
   console.log('=== WordPress Authentication Test ===\n');
-  console.log(`Site URL: ${process.env.WP_SITE_URL || '(not set)'}`);
-  console.log(`Username: ${process.env.WP_USERNAME || '(not set)'}\n`);
+  console.log(`Site URL:  ${process.env.WP_SITE_URL || '(not set)'}`);
+  console.log(`Username:  ${process.env.WP_USERNAME || '(not set)'}`);
+  console.log(`Password:  ${process.env.WP_APP_PASSWORD ? '(set)' : '(not set)'}\n`);
 
+  // Step 1: Check if auth-fix plugin is active
+  console.log('Step 1: Checking auth-fix plugin status...');
+  const pluginStatus = await checkPluginStatus();
+
+  if (pluginStatus && pluginStatus.active) {
+    console.log(`  Plugin found: v${pluginStatus.version}`);
+    console.log(`  PHP SAPI: ${pluginStatus.php_sapi}`);
+    console.log(`  WP Version: ${pluginStatus.wp_version}\n`);
+  } else {
+    console.error('\n  WARNING: Auth-fix plugin NOT detected!');
+    console.error('  The plugin "REST API Basic Auth Fix" must be installed and activated.');
+    console.error('  Download: https://github.com/tanukichiyamaguchi/dentalBlog/raw/claude/dental-blog-automation-K3zP1/wp-plugin/rest-api-auth-fix.zip');
+    console.error('  Install: WP Admin -> Plugins -> Add New -> Upload Plugin\n');
+    console.error('  Attempting auth anyway...\n');
+  }
+
+  // Step 2: Verify authentication
+  console.log('Step 2: Testing WordPress authentication...');
   try {
-    // Verify authentication and get user info
-    console.log('Connecting to WordPress...');
     const user = await verifyAuth();
 
     console.log('\nAuthentication successful!\n');
@@ -47,30 +65,20 @@ async function main() {
       }
     }
 
-    // Fetch post count for the user
+    // Fetch post count
     try {
-      const posts = await wpRequest(
+      const publishedPosts = await wpRequest(
         'GET',
-        `/wp/v2/posts?author=${user.id}&per_page=1&status=any`
+        `/wp/v2/posts?author=${user.id}&per_page=1&status=publish`
       );
-      // WP REST API returns X-WP-Total header, but via JSON array we just check
-      // if any posts exist. For a count, we query with minimal data.
-      if (Array.isArray(posts)) {
-        // Try to get total count by querying statuses
-        const draftPosts = await wpRequest(
-          'GET',
-          `/wp/v2/posts?author=${user.id}&per_page=1&status=draft`
-        );
-        const publishedPosts = await wpRequest(
-          'GET',
-          `/wp/v2/posts?author=${user.id}&per_page=1&status=publish`
-        );
+      const draftPosts = await wpRequest(
+        'GET',
+        `/wp/v2/posts?author=${user.id}&per_page=1&status=draft`
+      );
 
-        console.log('\nPost Summary:');
-        console.log(`  Published: ${Array.isArray(publishedPosts) ? publishedPosts.length + '+' : 'unknown'}`);
-        console.log(`  Drafts:    ${Array.isArray(draftPosts) ? draftPosts.length + '+' : 'unknown'}`);
-        console.log('  (Counts show at least this many; actual totals may be higher.)');
-      }
+      console.log('\nPost Summary:');
+      console.log(`  Published: ${Array.isArray(publishedPosts) ? publishedPosts.length + '+' : 'unknown'}`);
+      console.log(`  Drafts:    ${Array.isArray(draftPosts) ? draftPosts.length + '+' : 'unknown'}`);
     } catch (postErr) {
       console.log(`\nCould not retrieve post count: ${postErr.message}`);
     }
@@ -79,11 +87,15 @@ async function main() {
   } catch (err) {
     console.error(`\nAuthentication FAILED: ${err.message}`);
     console.error('\nTroubleshooting:');
-    console.error('  1. Check that WP_SITE_URL is correct in .env');
-    console.error('  2. Check that WP_USERNAME is correct in .env');
+    if (!pluginStatus || !pluginStatus.active) {
+      console.error('  >> Most likely cause: Auth-fix plugin is not installed or not activated.');
+      console.error('     Install the plugin first, then retry.');
+    }
+    console.error('  1. Check that WP_SITE_URL is correct (no trailing slash)');
+    console.error('  2. Check that WP_USERNAME matches your WordPress login username');
     console.error('  3. Check that WP_APP_PASSWORD is a valid Application Password');
     console.error('     (WordPress Admin -> Users -> Profile -> Application Passwords)');
-    console.error('  4. Ensure the WordPress REST API is accessible');
+    console.error('  4. Ensure the REST API Auth Fix plugin is installed and activated');
     process.exit(1);
   }
 }
