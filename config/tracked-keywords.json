@@ -1,0 +1,181 @@
+{
+  "keywords": [
+    {
+      "id": 1,
+      "keyword": "京都 大人 矯正",
+      "category": "orthodontics",
+      "priority": 1,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事は矯正×全身の不調がテーマ。本KWは大人の矯正治療の選択肢・費用・期間に焦点を当て差別化"
+    },
+    {
+      "id": 2,
+      "keyword": "歯列矯正 費用 京都",
+      "category": "orthodontics",
+      "priority": 1,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事は効果面が中心。本KWは費用相場・保険適用可否・支払い方法など経済面に特化"
+    },
+    {
+      "id": 3,
+      "keyword": "非抜歯矯正 京都",
+      "category": "orthodontics",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事は全身との関連がテーマ。本KWは抜歯を避ける矯正の具体的手法・顎位矯正の仕組みに焦点"
+    },
+    {
+      "id": 4,
+      "keyword": "小児矯正 京都 いつから",
+      "category": "orthodontics",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事に小児矯正関連なし。開始時期・一期治療と二期治療の違いを解説"
+    },
+    {
+      "id": 5,
+      "keyword": "子供 歯並び 矯正 京都市",
+      "category": "orthodontics",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事に小児歯並び関連なし。子供の歯並びチェックポイントや受診タイミングを解説"
+    },
+    {
+      "id": 6,
+      "keyword": "矯正 痛み 不安",
+      "category": "orthodontics",
+      "priority": 3,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事は効果面中心。本KWは矯正治療中の痛みの実態と対処法に特化"
+    },
+    {
+      "id": 7,
+      "keyword": "部分矯正 前歯 京都",
+      "category": "orthodontics",
+      "priority": 3,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事は全顎矯正が中心。前歯だけの部分矯正の適応・費用・期間を解説"
+    },
+    {
+      "id": 8,
+      "keyword": "インプラント 京都 費用",
+      "category": "implant",
+      "priority": 1,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事にインプラント関連なし。費用相場・内訳・医療費控除まで網羅"
+    },
+    {
+      "id": 9,
+      "keyword": "ジルコニアインプラント メリット",
+      "category": "implant",
+      "priority": 1,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事にジルコニアインプラント関連なし。チタンとの比較・金属アレルギー対応の観点で解説"
+    },
+    {
+      "id": 10,
+      "keyword": "インプラント 怖い 不安",
+      "category": "implant",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事にインプラント関連なし。手術への不安に寄り添い、安全対策やリスク管理を客観的に解説"
+    },
+    {
+      "id": 11,
+      "keyword": "インプラント ブリッジ 入れ歯 比較",
+      "category": "implant",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事に歯の欠損治療比較なし。3つの選択肢のメリット・デメリットを中立的に比較"
+    },
+    {
+      "id": 12,
+      "keyword": "インプラント 寿命 長持ち",
+      "category": "implant",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事にインプラントの耐久性関連なし。寿命に影響する要因とメンテナンスの重要性を解説"
+    },
+    {
+      "id": 13,
+      "keyword": "インプラント 金属アレルギー 対応",
+      "category": "implant",
+      "priority": 3,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事のメタルフリーは補綴中心。インプラント体自体のメタルフリー（ジルコニア）に特化"
+    },
+    {
+      "id": 14,
+      "keyword": "インプラント メンテナンス 通院",
+      "category": "implant",
+      "priority": 3,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事の予防はメンテナンス全般。インプラント特有のメンテナンス内容・頻度に焦点"
+    },
+    {
+      "id": 15,
+      "keyword": "噛み合わせ 頭痛 原因",
+      "category": "tmj_occlusion",
+      "priority": 1,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事3は顎関節症×全身の健康が主題。本KWは頭痛と噛み合わせの因果関係に特化し科学的根拠を提示"
+    },
+    {
+      "id": 16,
+      "keyword": "顎関節症 治療 京都",
+      "category": "tmj_occlusion",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事3は症状の放置リスクが中心。本KWは具体的な治療の流れ・K7マシン等の検査プロセスを解説"
+    },
+    {
+      "id": 17,
+      "keyword": "噛み合わせ 検査 K7",
+      "category": "tmj_occlusion",
+      "priority": 3,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事にK7マシン検査の詳細解説なし。科学的検査の具体的な流れと意義を紹介"
+    },
+    {
+      "id": 18,
+      "keyword": "セラミック 銀歯 やり替え",
+      "category": "holistic_metalfree",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事6はメタルフリー治療の全体紹介。本KWは銀歯からセラミックへの交換手順・判断基準に特化"
+    },
+    {
+      "id": 19,
+      "keyword": "金属アレルギー 歯科 京都",
+      "category": "holistic_metalfree",
+      "priority": 2,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事6はメタルフリー全般。本KWは金属アレルギーの症状・検査・歯科金属との関連に焦点"
+    },
+    {
+      "id": 20,
+      "keyword": "歯周病 予防 セルフケア",
+      "category": "preventive",
+      "priority": 3,
+      "status": "planned",
+      "avoidOverlapWith": "既存記事5は歯周病×メタボリックドミノ。本KWは日常のセルフケア方法・ブラッシング指導に特化"
+    }
+  ],
+  "lastUpdated": "2026-04-11",
+  "categoryDistribution": {
+    "orthodontics": 7,
+    "implant": 7,
+    "tmj_occlusion": 3,
+    "holistic_metalfree": 2,
+    "preventive": 1
+  },
+  "existingArticlesForReference": [
+    "「歯列矯正＝見た目だけ」と思っていませんか？頭痛や肩こりも解消する「全身を整える矯正」とは",
+    "歯列矯正は「見た目」だけじゃない！全身の不調を整える噛み合わせ治療の効果",
+    "「顎が鳴る」「口が開かない」を放置しないで！全身の健康を守る噛み合わせ治療",
+    "歯のメンテナンスはなぜ重要？京都市西京区の歯科医師が教える、一生自分の歯でいるための秘訣",
+    "【歯科医師が解説】歯周病が「メタボリックドミノ」の引き金に？",
+    "京都市西京区の佐々木歯科医院が提案する「メタルフリー治療」で、美しく健康な笑顔を！",
+    "その肩こりや頭痛、実は「歯並び」が原因かも？"
+  ]
+}

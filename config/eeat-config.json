@@ -1,0 +1,231 @@
+{
+  "author": {
+    "name": "佐々木 継泰",
+    "reading": "ささき つぐやす",
+    "role": "副院長・記事監修者",
+    "clinicName": "佐々木歯科医院",
+    "profileUrl": "https://dentalclinic-sasaki.com/profile.html",
+    "education": {
+      "highSchool": "洛南高校",
+      "university": "東京歯科大学卒"
+    },
+    "certifications": [
+      {
+        "name": "国際顎頭蓋機能学会 日本部会 認定医",
+        "type": "specialty_certification",
+        "eeatCategory": "expertise"
+      },
+      {
+        "name": "国際顎頭蓋機能学会 マスター",
+        "type": "advanced_certification",
+        "eeatCategory": "expertise"
+      }
+    ],
+    "positions": [
+      {
+        "title": "京都歯科医療技術専門学校 運営委員",
+        "eeatCategory": "authoritativeness",
+        "description": "歯科医療教育機関の運営に携わり、次世代の歯科衛生士育成に貢献"
+      },
+      {
+        "title": "京都市立大枝小学校 学校医",
+        "eeatCategory": "trustworthiness",
+        "description": "公立学校の学校医として地域の子どもの口腔健康を守る公的役職"
+      }
+    ],
+    "instructorRole": {
+      "title": "株式会社モリタ 常任講師",
+      "eeatCategory": "authoritativeness",
+      "description": "歯科医療機器メーカーの常任講師として、歯科医師向けの技術指導を担当"
+    },
+    "experience": {
+      "eeatCategory": "experience",
+      "description": "副院長として日常的に噛み合わせ治療・矯正治療・インプラント治療などの臨床経験を有する"
+    }
+  },
+  "clinic": {
+    "name": "佐々木歯科医院",
+    "url": "https://www.dentalclinic-sasaki.com",
+    "address": "〒615-8035 京都府京都市西京区下津林芝ノ宮町17",
+    "phone": "075-391-1460",
+    "director": "佐々木 悦男",
+    "trustSignals": [
+      "地域密着型の歯科医院として長年の診療実績",
+      "国際学会認定医・マスター在籍",
+      "K7マシン等の科学的検査機器を用いたエビデンスベースの診療",
+      "学校医としての公的信頼",
+      "歯科医療教育機関との連携",
+      "歯科機器メーカーとの専門的連携"
+    ],
+    "specializations": [
+      "噛み合わせ治療（顎位矯正）",
+      "ホリスティック歯科治療",
+      "メタルフリー治療・ジルコニアインプラント",
+      "マイクロスコープによる精密治療",
+      "小児歯科・小児矯正"
+    ]
+  },
+  "citations": {
+    "allowedSources": [
+      {
+        "name": "厚生労働省",
+        "url": "https://www.mhlw.go.jp/",
+        "type": "government"
+      },
+      {
+        "name": "e-ヘルスネット（厚生労働省）",
+        "url": "https://www.e-healthnet.mhlw.go.jp/",
+        "type": "government"
+      },
+      {
+        "name": "日本歯科医師会",
+        "url": "https://www.jda.or.jp/",
+        "type": "professional_association"
+      },
+      {
+        "name": "日本矯正歯科学会",
+        "url": "https://www.jos.gr.jp/",
+        "type": "academic_society"
+      },
+      {
+        "name": "日本口腔インプラント学会",
+        "url": "https://www.shika-implant.org/",
+        "type": "academic_society"
+      },
+      {
+        "name": "日本歯周病学会",
+        "url": "https://www.perio.jp/",
+        "type": "academic_society"
+      },
+      {
+        "name": "日本歯科保存学会",
+        "url": "https://www.hozon.or.jp/",
+        "type": "academic_society"
+      }
+    ],
+    "rules": {
+      "minimumPerArticle": 1,
+      "requireSpecificUrl": true,
+      "requireSurveyYear": true,
+      "prohibitedSources": [
+        "個人ブログ",
+        "企業サイト（歯科機器メーカー等）",
+        "海外論文（直接引用不可）",
+        "Wikipedia",
+        "SNS投稿"
+      ]
+    }
+  },
+  "structuredData": {
+    "schema_org_templates": {
+      "article": {
+        "@context": "https://schema.org",
+        "@type": "MedicalWebPage",
+        "author": {
+          "@type": "Person",
+          "name": "佐々木 継泰",
+          "jobTitle": "副院長",
+          "affiliation": {
+            "@type": "Dentist",
+            "name": "佐々木歯科医院",
+            "url": "https://www.dentalclinic-sasaki.com",
+            "address": {
+              "@type": "PostalAddress",
+              "postalCode": "615-8035",
+              "addressRegion": "京都府",
+              "addressLocality": "京都市西京区",
+              "streetAddress": "下津林芝ノ宮町17"
+            },
+            "telephone": "075-391-1460"
+          },
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "認定医",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "国際顎頭蓋機能学会 日本部会"
+              }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "マスター",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "国際顎頭蓋機能学会"
+              }
+            }
+          ],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "東京歯科大学"
+          }
+        },
+        "publisher": {
+          "@type": "Dentist",
+          "name": "佐々木歯科医院",
+          "url": "https://www.dentalclinic-sasaki.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.dentalclinic-sasaki.com/logo.png",
+            "_comment": "ロゴURLは実際のパスに要修正"
+          }
+        },
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "佐々木歯科医院",
+          "url": "https://www.dentalclinic-sasaki.com"
+        }
+      },
+      "localBusiness": {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "佐々木歯科医院",
+        "url": "https://www.dentalclinic-sasaki.com",
+        "telephone": "075-391-1460",
+        "faxNumber": "075-394-2780",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "615-8035",
+          "addressRegion": "京都府",
+          "addressLocality": "京都市西京区",
+          "streetAddress": "下津林芝ノ宮町17",
+          "addressCountry": "JP"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Friday"],
+            "opens": "09:00",
+            "closes": "13:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Friday"],
+            "opens": "14:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Thursday", "Saturday"],
+            "opens": "09:00",
+            "closes": "13:00"
+          }
+        ],
+        "medicalSpecialty": [
+          "一般歯科",
+          "歯列矯正",
+          "インプラント",
+          "小児歯科",
+          "噛み合わせ治療"
+        ]
+      },
+      "faqPage": {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [],
+        "_comment": "記事ごとにFAQ構造化データを動的に生成する。mainEntityにQuestion/Answerオブジェクトを追加"
+      }
+    }
+  }
+}
