@@ -1,0 +1,60 @@
+name: Daily Auto-Publish
+
+on:
+  schedule:
+    # 毎日日本時間9:00（UTC 0:00）に実行
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      status:
+        description: "投稿ステータス"
+        required: false
+        type: choice
+        options:
+          - draft
+          - publish
+        default: draft
+
+permissions:
+  contents: write
+
+jobs:
+  auto-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Japanese fonts
+        run: sudo apt-get install -y fonts-noto-cjk
+
+      - name: Generate .env from Secrets
+        env:
+          WP_SITE_URL: ${{ secrets.WP_SITE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+        run: |
+          printf 'WP_SITE_URL=%s\n' "$WP_SITE_URL" > .env
+          printf 'WP_USERNAME=%s\n' "$WP_USERNAME" >> .env
+          printf 'WP_APP_PASSWORD=%s\n' "$WP_APP_PASSWORD" >> .env
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Auto-publish next article
+        env:
+          PUBLISH_STATUS: ${{ inputs.status || 'draft' }}
+        run: node auto-publish.js --status "$PUBLISH_STATUS"
+
+      - name: Commit tracker update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add config/publish-tracker.json
+          git diff --cached --quiet || git commit -m "chore: update publish tracker [skip ci]"
+          git push
