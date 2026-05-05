@@ -4,6 +4,7 @@ slug: "tmj-treatment-kyoto"
 metaDescription: "顎が痛い、口が開かない、顎がカクカク鳴る。顎関節症の症状と治療の流れを京都市西京区の噛み合わせ専門医が解説します。K7マシンによる科学的検査。"
 categories:
   - clinicblog
+  - news
 tags:
   - 顎関節症
   - 噛み合わせ

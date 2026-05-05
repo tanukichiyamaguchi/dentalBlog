@@ -4,6 +4,7 @@ slug: "pediatric-orthodontics-kyoto"
 metaDescription: "お子さんの歯並びが気になる保護者の方へ。小児矯正の開始時期、一期治療と二期治療の違い、費用について京都市西京区の歯科医師が解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - 小児矯正
   - 子供の歯並び

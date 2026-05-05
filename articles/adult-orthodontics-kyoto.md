@@ -4,6 +4,7 @@ slug: "adult-orthodontics-kyoto"
 metaDescription: "京都で大人の歯列矯正をお考えの方へ。矯正の種類・費用・期間から、極力歯を抜かない矯正の考え方まで歯科医師がわかりやすく解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - 歯列矯正
   - 大人の矯正

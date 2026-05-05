@@ -4,6 +4,7 @@ slug: "implant-fear-anxiety"
 metaDescription: "インプラント手術が怖い方へ。痛み・リスク・失敗への不安に、京都市西京区の歯科医師が正直にお答えします。静脈鎮静や安全対策についても解説。"
 categories:
   - clinicblog
+  - news
 tags:
   - インプラント
   - 不安

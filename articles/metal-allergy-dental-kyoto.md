@@ -4,6 +4,7 @@ slug: "metal-allergy-dental-kyoto"
 metaDescription: "歯科金属が原因の金属アレルギーについて、症状・検査・治療法を京都市西京区の歯科医師が解説。メタルフリー治療、ジルコニアインプラントにも対応。"
 categories:
   - clinicblog
+  - news
 tags:
   - 金属アレルギー
   - メタルフリー

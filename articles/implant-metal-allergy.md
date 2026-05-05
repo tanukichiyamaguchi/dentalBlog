@@ -4,6 +4,7 @@ slug: "implant-metal-allergy"
 metaDescription: "チタンアレルギーが心配な方へ。インプラント治療における金属アレルギーのリスクと、ジルコニアインプラントという代替選択肢を京都の歯科医師が解説。"
 categories:
   - clinicblog
+  - news
 tags:
   - インプラント
   - 金属アレルギー

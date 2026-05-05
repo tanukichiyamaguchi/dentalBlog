@@ -4,6 +4,7 @@ slug: "implant-bridge-denture-comparison"
 metaDescription: "歯を失った時の治療法、インプラント・ブリッジ・入れ歯を京都の歯科医師が中立的に比較。それぞれのメリット・デメリット・費用を解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - インプラント
   - ブリッジ

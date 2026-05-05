@@ -14,7 +14,7 @@ const path = require('path');
 
 const { parseFrontmatter, extractBody, convertMarkdownToHtml } = require('./lib/markdown-html');
 const { runQualityCheck } = require('./lib/quality-check');
-const { verifyAuth, createPost, uploadMedia, findOrCreateTag } = require('./lib/wordpress-api');
+const { verifyAuth, createPost, uploadMedia, findOrCreateTag, findCategory } = require('./lib/wordpress-api');
 const { generateOgpImage } = require('./lib/image-overlay');
 
 const TRACKER_PATH = path.resolve(__dirname, 'config/publish-tracker.json');
@@ -172,16 +172,34 @@ async function main() {
   const htmlContent = convertMarkdownToHtml(bodyWithImages);
   const tagIds = await resolveTagIds(tagNames);
 
+  // Resolve category names by querying WordPress dynamically
+  console.log('Resolving categories...');
   const existingCategories = clinicConfig.existingCategories || {};
-  const categoryIds = categoryNames
-    .map(c => {
-      const asNum = parseInt(c, 10);
-      if (!isNaN(asNum) && asNum > 0) return asNum;
-      const mapped = existingCategories[c];
-      if (mapped && mapped > 0) return mapped;
-      return null;
-    })
-    .filter(n => n !== null);
+  const categoryIds = [];
+  for (const c of categoryNames) {
+    const asNum = parseInt(c, 10);
+    if (!isNaN(asNum) && asNum > 0) {
+      categoryIds.push(asNum);
+      continue;
+    }
+    const mapped = existingCategories[c];
+    if (mapped && mapped > 0) {
+      categoryIds.push(mapped);
+      continue;
+    }
+    // Dynamic lookup via WP API
+    try {
+      const cat = await findCategory(c);
+      if (cat) {
+        categoryIds.push(cat.id);
+        console.log(`  Category resolved: "${c}" -> ID ${cat.id} (${cat.name})`);
+      } else {
+        console.warn(`  Warning: Category "${c}" not found in WordPress.`);
+      }
+    } catch (err) {
+      console.warn(`  Warning: Could not lookup category "${c}": ${err.message}`);
+    }
+  }
 
   const postParams = {
     title,

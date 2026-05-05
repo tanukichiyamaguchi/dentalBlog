@@ -4,6 +4,7 @@ slug: "zirconia-implant-benefits"
 metaDescription: "ジルコニアインプラントのメリットやチタンとの違いを京都の歯科医師が解説。金属アレルギー対応、審美性、メタルフリー治療の選択肢をわかりやすくお伝えします。"
 categories:
   - clinicblog
+  - news
 tags:
   - ジルコニアインプラント
   - メタルフリー

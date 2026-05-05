@@ -4,6 +4,7 @@ slug: "non-extraction-orthodontics-kyoto"
 metaDescription: "歯を抜かない矯正治療は本当に可能なのか。顎の位置から整える非抜歯矯正の仕組み、適応症例、費用について京都市西京区の歯科医師が解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - 非抜歯矯正
   - 歯列矯正

@@ -4,6 +4,7 @@ slug: "periodontal-selfcare"
 metaDescription: "歯周病予防のセルフケア方法を京都市西京区の歯科医師が解説。正しいブラッシング、歯間ケア、定期検診の重要性についてお伝えします。"
 categories:
   - clinicblog
+  - news
 tags:
   - 歯周病
   - 予防歯科

@@ -4,6 +4,7 @@ slug: "implant-cost-kyoto"
 metaDescription: "京都でインプラント治療の費用が気になる方へ。1本あたりの相場、費用の内訳、ジルコニアインプラントの特徴まで歯科医師がわかりやすく解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - インプラント
   - 京都

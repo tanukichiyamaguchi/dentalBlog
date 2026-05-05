@@ -4,6 +4,7 @@ slug: "orthodontics-cost-kyoto"
 metaDescription: "京都で歯列矯正の費用が気になる方へ。検査料から基本料金、総額の目安、医療費控除、分割払いまで京都市西京区の歯科医師が具体的に解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - 歯列矯正
   - 矯正費用

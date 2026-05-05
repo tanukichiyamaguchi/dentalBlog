@@ -4,6 +4,7 @@ slug: "implant-longevity-maintenance"
 metaDescription: "インプラントの寿命と長持ちさせるためのメンテナンス方法を京都の歯科医師が解説。インプラント周囲炎の予防、通院頻度、日々のケアについて。"
 categories:
   - clinicblog
+  - news
 tags:
   - インプラント
   - メンテナンス

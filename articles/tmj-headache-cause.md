@@ -4,6 +4,7 @@ slug: "tmj-headache-cause"
 metaDescription: "慢性的な頭痛の原因が噛み合わせにあるかもしれません。顎関節症と頭痛の関係、K7マシンによる科学的検査について京都市西京区の歯科医師が解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - 噛み合わせ
   - 頭痛

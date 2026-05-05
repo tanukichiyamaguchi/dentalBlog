@@ -4,6 +4,7 @@ slug: "ceramic-silver-replacement"
 metaDescription: "銀歯をセラミックに替えたい方へ。e.maxやジルコニアの違い、費用、治療の流れを京都市西京区の歯科医師がわかりやすく解説します。"
 categories:
   - clinicblog
+  - news
 tags:
   - セラミック
   - 銀歯
